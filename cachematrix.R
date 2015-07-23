@@ -1,7 +1,7 @@
 ## this construction makes a matrix cachable
-## give this function a matrix and it will cache its inverse matrix
-## overwrite the matrix object with the $set function
 
+## give this function a matrix and it will cache it and its inverse matrix
+## overwrite the matrix object with the $set function
 makeCacheMatrix <- function(x = matrix()) {
   ## set inv (result of inversion calculation) to NULL at start
   inv <- NULL
@@ -12,7 +12,7 @@ makeCacheMatrix <- function(x = matrix()) {
     inv <<- NULL
   }
   
-  ## get the matrix, used for calculation
+  ## returns the matrix, used for calculation
   get <- function() x
   
   ## save the inverted data within a different environment
@@ -32,7 +32,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## CAUTION:
 ## if invertible matrix not supplied no error handling is applyed
 
-cacheSolve <- function(x, ...) {
+cacheSolve <- function(x) {
   ## look out for cached data
   alreadyCalculated <- x$getinv()
   
@@ -47,7 +47,8 @@ cacheSolve <- function(x, ...) {
   yetToCalculate <- x$get()
   
   ## calculate the inverse of the matrix
-  ## CAUTION: we asume the matrix is invertible, no error handling applyed
+  ## CAUTION: we asume within this assignment that 
+  ## the matrix is invertible, so no error handling is applyed
   inv <- solve(yetToCalculate)
   
   ## for later use save the result to cache
